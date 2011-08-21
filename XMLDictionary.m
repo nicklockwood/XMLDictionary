@@ -9,7 +9,7 @@
 //  Get the latest version of XMLDictionary from either of these locations:
 //
 //  http://charcoaldesign.co.uk/source/cocoa#xmldictionary
-//  https://github.com/demosthenese/xmldictionary
+//  https://github.com/nicklockwood/XMLDictionary
 //
 //  This software is provided 'as-is', without any express or implied
 //  warranty.  In no event will the authors be held liable for any damages
