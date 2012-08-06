@@ -1,0 +1,411 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C2BAEAE615D00E6E00838B54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BAEAE515D00E6E00838B54 /* Foundation.framework */; };
+		C2BAEAEB15D00E6E00838B54 /* XMLDictionary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2BAEAEA15D00E6E00838B54 /* XMLDictionary.h */; };
+		C2BAEAED15D00E6E00838B54 /* XMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BAEAEC15D00E6E00838B54 /* XMLDictionary.m */; };
+		C2BAEAF515D00E6E00838B54 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BAEAF415D00E6E00838B54 /* SenTestingKit.framework */; };
+		C2BAEAF715D00E6E00838B54 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BAEAF615D00E6E00838B54 /* UIKit.framework */; };
+		C2BAEAF815D00E6E00838B54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BAEAE515D00E6E00838B54 /* Foundation.framework */; };
+		C2BAEAFB15D00E6E00838B54 /* libXMLDictionary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BAEAE215D00E6E00838B54 /* libXMLDictionary.a */; };
+		C2BAEB0115D00E6E00838B54 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C2BAEAFF15D00E6E00838B54 /* InfoPlist.strings */; };
+		C2BAEB0415D00E6E00838B54 /* XMLDictionaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BAEB0315D00E6E00838B54 /* XMLDictionaryTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C2BAEAF915D00E6E00838B54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C2BAEAD915D00E6E00838B54 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C2BAEAE115D00E6E00838B54;
+			remoteInfo = XMLDictionary;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C2BAEAE015D00E6E00838B54 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				C2BAEAEB15D00E6E00838B54 /* XMLDictionary.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C2BAEAE215D00E6E00838B54 /* libXMLDictionary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libXMLDictionary.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2BAEAE515D00E6E00838B54 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C2BAEAE915D00E6E00838B54 /* XMLDictionary-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XMLDictionary-Prefix.pch"; sourceTree = "<group>"; };
+		C2BAEAEA15D00E6E00838B54 /* XMLDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMLDictionary.h; sourceTree = "<group>"; };
+		C2BAEAEC15D00E6E00838B54 /* XMLDictionary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XMLDictionary.m; sourceTree = "<group>"; };
+		C2BAEAF315D00E6E00838B54 /* XMLDictionaryTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XMLDictionaryTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2BAEAF415D00E6E00838B54 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		C2BAEAF615D00E6E00838B54 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		C2BAEAFE15D00E6E00838B54 /* XMLDictionaryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "XMLDictionaryTests-Info.plist"; sourceTree = "<group>"; };
+		C2BAEB0015D00E6E00838B54 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C2BAEB0215D00E6E00838B54 /* XMLDictionaryTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMLDictionaryTests.h; sourceTree = "<group>"; };
+		C2BAEB0315D00E6E00838B54 /* XMLDictionaryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XMLDictionaryTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C2BAEADF15D00E6E00838B54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2BAEAE615D00E6E00838B54 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2BAEAEF15D00E6E00838B54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2BAEAF515D00E6E00838B54 /* SenTestingKit.framework in Frameworks */,
+				C2BAEAF715D00E6E00838B54 /* UIKit.framework in Frameworks */,
+				C2BAEAF815D00E6E00838B54 /* Foundation.framework in Frameworks */,
+				C2BAEAFB15D00E6E00838B54 /* libXMLDictionary.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C2BAEAD715D00E6E00838B54 = {
+			isa = PBXGroup;
+			children = (
+				C2BAEAE715D00E6E00838B54 /* XMLDictionary */,
+				C2BAEAFC15D00E6E00838B54 /* XMLDictionaryTests */,
+				C2BAEAE415D00E6E00838B54 /* Frameworks */,
+				C2BAEAE315D00E6E00838B54 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C2BAEAE315D00E6E00838B54 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C2BAEAE215D00E6E00838B54 /* libXMLDictionary.a */,
+				C2BAEAF315D00E6E00838B54 /* XMLDictionaryTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C2BAEAE415D00E6E00838B54 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C2BAEAE515D00E6E00838B54 /* Foundation.framework */,
+				C2BAEAF415D00E6E00838B54 /* SenTestingKit.framework */,
+				C2BAEAF615D00E6E00838B54 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C2BAEAE715D00E6E00838B54 /* XMLDictionary */ = {
+			isa = PBXGroup;
+			children = (
+				C2BAEAEA15D00E6E00838B54 /* XMLDictionary.h */,
+				C2BAEAEC15D00E6E00838B54 /* XMLDictionary.m */,
+				C2BAEAE815D00E6E00838B54 /* Supporting Files */,
+			);
+			path = XMLDictionary;
+			sourceTree = "<group>";
+		};
+		C2BAEAE815D00E6E00838B54 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C2BAEAE915D00E6E00838B54 /* XMLDictionary-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C2BAEAFC15D00E6E00838B54 /* XMLDictionaryTests */ = {
+			isa = PBXGroup;
+			children = (
+				C2BAEB0215D00E6E00838B54 /* XMLDictionaryTests.h */,
+				C2BAEB0315D00E6E00838B54 /* XMLDictionaryTests.m */,
+				C2BAEAFD15D00E6E00838B54 /* Supporting Files */,
+			);
+			path = XMLDictionaryTests;
+			sourceTree = "<group>";
+		};
+		C2BAEAFD15D00E6E00838B54 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C2BAEAFE15D00E6E00838B54 /* XMLDictionaryTests-Info.plist */,
+				C2BAEAFF15D00E6E00838B54 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C2BAEAE115D00E6E00838B54 /* XMLDictionary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2BAEB0715D00E6E00838B54 /* Build configuration list for PBXNativeTarget "XMLDictionary" */;
+			buildPhases = (
+				C2BAEADE15D00E6E00838B54 /* Sources */,
+				C2BAEADF15D00E6E00838B54 /* Frameworks */,
+				C2BAEAE015D00E6E00838B54 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XMLDictionary;
+			productName = XMLDictionary;
+			productReference = C2BAEAE215D00E6E00838B54 /* libXMLDictionary.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C2BAEAF215D00E6E00838B54 /* XMLDictionaryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2BAEB0A15D00E6E00838B54 /* Build configuration list for PBXNativeTarget "XMLDictionaryTests" */;
+			buildPhases = (
+				C2BAEAEE15D00E6E00838B54 /* Sources */,
+				C2BAEAEF15D00E6E00838B54 /* Frameworks */,
+				C2BAEAF015D00E6E00838B54 /* Resources */,
+				C2BAEAF115D00E6E00838B54 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C2BAEAFA15D00E6E00838B54 /* PBXTargetDependency */,
+			);
+			name = XMLDictionaryTests;
+			productName = XMLDictionaryTests;
+			productReference = C2BAEAF315D00E6E00838B54 /* XMLDictionaryTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C2BAEAD915D00E6E00838B54 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Mysterious Trousers";
+			};
+			buildConfigurationList = C2BAEADC15D00E6E00838B54 /* Build configuration list for PBXProject "XMLDictionary" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C2BAEAD715D00E6E00838B54;
+			productRefGroup = C2BAEAE315D00E6E00838B54 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C2BAEAE115D00E6E00838B54 /* XMLDictionary */,
+				C2BAEAF215D00E6E00838B54 /* XMLDictionaryTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C2BAEAF015D00E6E00838B54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2BAEB0115D00E6E00838B54 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C2BAEAF115D00E6E00838B54 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C2BAEADE15D00E6E00838B54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2BAEAED15D00E6E00838B54 /* XMLDictionary.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2BAEAEE15D00E6E00838B54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2BAEB0415D00E6E00838B54 /* XMLDictionaryTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C2BAEAFA15D00E6E00838B54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C2BAEAE115D00E6E00838B54 /* XMLDictionary */;
+			targetProxy = C2BAEAF915D00E6E00838B54 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C2BAEAFF15D00E6E00838B54 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C2BAEB0015D00E6E00838B54 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C2BAEB0515D00E6E00838B54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C2BAEB0615D00E6E00838B54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C2BAEB0815D00E6E00838B54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/XMLDictionary.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XMLDictionary/XMLDictionary-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C2BAEB0915D00E6E00838B54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/XMLDictionary.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XMLDictionary/XMLDictionary-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		C2BAEB0B15D00E6E00838B54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XMLDictionary/XMLDictionary-Prefix.pch";
+				INFOPLIST_FILE = "XMLDictionaryTests/XMLDictionaryTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		C2BAEB0C15D00E6E00838B54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XMLDictionary/XMLDictionary-Prefix.pch";
+				INFOPLIST_FILE = "XMLDictionaryTests/XMLDictionaryTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C2BAEADC15D00E6E00838B54 /* Build configuration list for PBXProject "XMLDictionary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2BAEB0515D00E6E00838B54 /* Debug */,
+				C2BAEB0615D00E6E00838B54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C2BAEB0715D00E6E00838B54 /* Build configuration list for PBXNativeTarget "XMLDictionary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2BAEB0815D00E6E00838B54 /* Debug */,
+				C2BAEB0915D00E6E00838B54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C2BAEB0A15D00E6E00838B54 /* Build configuration list for PBXNativeTarget "XMLDictionaryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2BAEB0B15D00E6E00838B54 /* Debug */,
+				C2BAEB0C15D00E6E00838B54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C2BAEAD915D00E6E00838B54 /* Project object */;
+}
