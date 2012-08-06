@@ -30,20 +30,20 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
+
+//	Updated by Adam Kirk on 8/6/2012
+//	Copyright 2012 Mysterious Trousers. All rights reserved.
+//	Converted to ARC, Added it to CocoaPods.
+
 #import "XMLDictionary.h"
 
 
 @interface XMLDictionaryParser : NSObject<NSXMLParserDelegate>
-{
-	NSMutableDictionary *root;
-	NSMutableArray *stack;
-	NSMutableString *text;
-}
 
-@property (nonatomic, retain) NSMutableDictionary *root;
-@property (nonatomic, retain) NSMutableArray *stack;
+@property (nonatomic, strong) NSMutableDictionary *root;
+@property (nonatomic, strong) NSMutableArray *stack;
 @property (nonatomic, readonly) NSMutableDictionary *top;
-@property (nonatomic, retain) NSMutableString *text;
+@property (nonatomic, strong) NSMutableString *text;
 
 + (NSMutableDictionary *)dictionaryWithXMLData:(NSData *)data;
 + (NSMutableDictionary *)dictionaryWithXMLFile:(NSString *)path;
@@ -65,14 +65,13 @@
 		NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
 		[parser setDelegate:self];
 		[parser parse];
-		[parser release];
 	}
 	return self;
 }
 
 + (NSMutableDictionary *)dictionaryWithXMLData:(NSData *)data
 {	
-	return [[[[XMLDictionaryParser alloc] initWithXMLData:data] autorelease] root];
+	return [[[XMLDictionaryParser alloc] initWithXMLData:data] root];
 }
 
 + (NSMutableDictionary *)dictionaryWithXMLFile:(NSString *)path
@@ -94,7 +93,7 @@
     }
     else if ([node isKindOfClass:[NSDictionary class]])
     {
-        NSDictionary *attributes = [node attributes];
+        NSDictionary *attributes = [(NSDictionary *)node attributes];
         NSMutableString *attributeString = [NSMutableString string];
         for (NSString *key in [attributes allKeys])
         {
@@ -284,7 +283,7 @@
 
 - (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
 {
-	[self addText:[[[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding] autorelease]];
+	[self addText:[[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding]];
 }
 
 - (void)parser:(NSXMLParser *)parser foundComment:(NSString *)comment
@@ -302,14 +301,6 @@
 			[comments addObject:comment];
 		}
 	}
-}
-
-- (void)dealloc {
-	
-	[text release];
-	[stack release];
-	[root release];
-	[super dealloc];
 }
 
 @end
