@@ -30,6 +30,10 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
+//	Updated by Adam Kirk on 8/6/2012
+//	Copyright 2012 Mysterious Trousers. All rights reserved.
+//	Converted to ARC, Added it to CocoaPods.
+
 #import <Foundation/Foundation.h>
 
 
