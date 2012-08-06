@@ -339,7 +339,7 @@
 	else if ([XML_ATTRIBUTE_PREFIX length])
 	{
 		NSMutableDictionary *filteredDict = [NSMutableDictionary dictionaryWithDictionary:self];
-        [filteredDict removeObjectsForKeys:[NSArray arrayWithObjects:XML_COMMENTS_KEY, XML_TEXT_KEY, XML_NAME_KEY, nil]];
+        [filteredDict removeObjectsForKeys:@[XML_COMMENTS_KEY, XML_TEXT_KEY, XML_NAME_KEY]];
         for (NSString *key in [filteredDict allKeys])
         {
             [filteredDict removeObjectForKey:key];
@@ -356,7 +356,7 @@
 - (NSDictionary *)childNodes
 {	
 	NSMutableDictionary *filteredDict = [NSMutableDictionary dictionaryWithDictionary:self];
-	[filteredDict removeObjectsForKeys:[NSArray arrayWithObjects:XML_ATTRIBUTES_KEY, XML_COMMENTS_KEY, XML_TEXT_KEY, XML_NAME_KEY, nil]];
+	[filteredDict removeObjectsForKeys:@[XML_ATTRIBUTES_KEY, XML_COMMENTS_KEY, XML_TEXT_KEY, XML_NAME_KEY]];
 	if ([XML_ATTRIBUTE_PREFIX length])
     {
         for (NSString *key in [filteredDict allKeys])
