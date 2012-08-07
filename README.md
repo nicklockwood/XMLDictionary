@@ -9,7 +9,10 @@ Unlike other DOM parsers, XMLDictionary does not attempt to replicate all of the
 Installation
 --------------
 
-To use the XMLDictionary in an app, just drag the class files into your project.
+To install this, use cocoapods and add this to your Podfile: 
+
+	pod 'XMLDictionary', :git => 'https://github.com/mysterioustrousers/XMLDictionary.git'
+
 
 
 Configuration
