@@ -10,4 +10,6 @@
 
 @interface XMLDictionaryTests : SenTestCase
 
+@property (strong, nonatomic) NSString *XMLString;
+
 @end

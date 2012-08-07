@@ -16,6 +16,7 @@
 		C2BAEAFB15D00E6E00838B54 /* libXMLDictionary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BAEAE215D00E6E00838B54 /* libXMLDictionary.a */; };
 		C2BAEB0115D00E6E00838B54 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C2BAEAFF15D00E6E00838B54 /* InfoPlist.strings */; };
 		C2BAEB0415D00E6E00838B54 /* XMLDictionaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BAEB0315D00E6E00838B54 /* XMLDictionaryTests.m */; };
+		C2BAEB6E15D16DE900838B54 /* XMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BAEAEC15D00E6E00838B54 /* XMLDictionary.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -252,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2BAEB0415D00E6E00838B54 /* XMLDictionaryTests.m in Sources */,
+				C2BAEB6E15D16DE900838B54 /* XMLDictionary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,7 +296,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -313,7 +315,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -396,6 +398,7 @@
 				C2BAEB0915D00E6E00838B54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C2BAEB0A15D00E6E00838B54 /* Build configuration list for PBXNativeTarget "XMLDictionaryTests" */ = {
 			isa = XCConfigurationList;
@@ -404,6 +407,7 @@
 				C2BAEB0C15D00E6E00838B54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
