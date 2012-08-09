@@ -418,8 +418,8 @@
 }
 
 - (NSString *)xmlString
-{	
-	return [XMLDictionaryParser xmlStringForNode:self withNodeName:[self nodeName] ?: @"root"];
+{
+	return [self innerXML];
 }
 
 @end
