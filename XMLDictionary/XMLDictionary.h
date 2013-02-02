@@ -1,14 +1,13 @@
 //
 //  XMLDictionary.h
 //
-//  Version 1.0
+//  Version 1.1
 //
 //  Created by Nick Lockwood on 15/11/2010.
 //  Copyright 2010 Charcoal Design. All rights reserved.
 //
-//  Get the latest version of XMLDictionary from either of these locations:
+//  Get the latest version of XMLDictionary from here:
 //
-//  http://charcoaldesign.co.uk/source/cocoa#xmldictionary
 //  https://github.com/nicklockwood/XMLDictionary
 //
 //  This software is provided 'as-is', without any express or implied
