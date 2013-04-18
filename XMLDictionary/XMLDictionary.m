@@ -425,10 +425,11 @@
 
 - (NSString *)xmlEncodedString
 {	
-	return [[[[self stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]
-			  stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"]
-			 stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"]
-			stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+	return [[[[[self stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]
+               stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"]
+              stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"]
+             stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"]
+            stringByReplacingOccurrencesOfString:@"\'" withString:@"&apos;"];
 }
 
 @end
