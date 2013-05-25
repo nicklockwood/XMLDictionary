@@ -332,7 +332,6 @@
 				DSTROOT = /tmp/XMLDictionary.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XMLDictionary/XMLDictionary-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = XMLDictionary;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -347,7 +346,6 @@
 				DSTROOT = /tmp/XMLDictionary.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XMLDictionary/XMLDictionary-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = XMLDictionary;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -376,6 +374,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -395,6 +397,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -406,7 +412,6 @@
 				DSTROOT = /tmp/XMLDictionary.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XMLDictionary/XMLDictionary-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = XMLDictionary;
 				SKIP_INSTALL = YES;
 			};
@@ -418,7 +423,6 @@
 				DSTROOT = /tmp/XMLDictionary.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XMLDictionary/XMLDictionary-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = XMLDictionary;
 				SKIP_INSTALL = YES;
 			};
