@@ -14,7 +14,6 @@
 		C2BAEAEB15D00E6E00838B54 /* XMLDictionary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2BAEAEA15D00E6E00838B54 /* XMLDictionary.h */; };
 		C2BAEAED15D00E6E00838B54 /* XMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BAEAEC15D00E6E00838B54 /* XMLDictionary.m */; };
 		C2BAEAF515D00E6E00838B54 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BAEAF415D00E6E00838B54 /* SenTestingKit.framework */; };
-		C2BAEAF715D00E6E00838B54 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BAEAF615D00E6E00838B54 /* UIKit.framework */; };
 		C2BAEAF815D00E6E00838B54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BAEAE515D00E6E00838B54 /* Foundation.framework */; };
 		C2BAEAFB15D00E6E00838B54 /* libXMLDictionary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BAEAE215D00E6E00838B54 /* libXMLDictionary.a */; };
 		C2BAEB0115D00E6E00838B54 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C2BAEAFF15D00E6E00838B54 /* InfoPlist.strings */; };
@@ -64,7 +63,6 @@
 		C2BAEAEC15D00E6E00838B54 /* XMLDictionary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XMLDictionary.m; sourceTree = "<group>"; };
 		C2BAEAF315D00E6E00838B54 /* XMLDictionaryTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XMLDictionaryTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2BAEAF415D00E6E00838B54 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		C2BAEAF615D00E6E00838B54 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		C2BAEAFE15D00E6E00838B54 /* XMLDictionaryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "XMLDictionaryTests-Info.plist"; sourceTree = "<group>"; };
 		C2BAEB0015D00E6E00838B54 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C2BAEB0215D00E6E00838B54 /* XMLDictionaryTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMLDictionaryTests.h; sourceTree = "<group>"; };
@@ -93,7 +91,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2BAEAF515D00E6E00838B54 /* SenTestingKit.framework in Frameworks */,
-				C2BAEAF715D00E6E00838B54 /* UIKit.framework in Frameworks */,
 				C2BAEAF815D00E6E00838B54 /* Foundation.framework in Frameworks */,
 				C2BAEAFB15D00E6E00838B54 /* libXMLDictionary.a in Frameworks */,
 			);
@@ -127,7 +124,6 @@
 			children = (
 				C2BAEAE515D00E6E00838B54 /* Foundation.framework */,
 				C2BAEAF415D00E6E00838B54 /* SenTestingKit.framework */,
-				C2BAEAF615D00E6E00838B54 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
