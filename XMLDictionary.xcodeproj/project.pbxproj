@@ -231,7 +231,7 @@
 		C2BAEAD915D00E6E00838B54 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Mysterious Trousers";
 			};
 			buildConfigurationList = C2BAEADC15D00E6E00838B54 /* Build configuration list for PBXProject "XMLDictionary" */;
@@ -332,6 +332,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
 				DSTROOT = /tmp/XMLDictionary.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XMLDictionary/XMLDictionary-Prefix.pch";
@@ -346,6 +347,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COMBINE_HIDPI_IMAGES = YES;
 				DSTROOT = /tmp/XMLDictionary.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XMLDictionary/XMLDictionary-Prefix.pch";
