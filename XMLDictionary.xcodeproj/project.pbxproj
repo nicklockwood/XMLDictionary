@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C254D9E617510A59009B7B3B /* XMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BAEAEC15D00E6E00838B54 /* XMLDictionary.m */; };
+		C254D9E817510A59009B7B3B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BAEAE515D00E6E00838B54 /* Foundation.framework */; };
+		C254D9EA17510A59009B7B3B /* XMLDictionary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2BAEAEA15D00E6E00838B54 /* XMLDictionary.h */; };
 		C2BAEAE615D00E6E00838B54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BAEAE515D00E6E00838B54 /* Foundation.framework */; };
 		C2BAEAEB15D00E6E00838B54 /* XMLDictionary.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C2BAEAEA15D00E6E00838B54 /* XMLDictionary.h */; };
 		C2BAEAED15D00E6E00838B54 /* XMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BAEAEC15D00E6E00838B54 /* XMLDictionary.m */; };
@@ -30,6 +33,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		C254D9E917510A59009B7B3B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				C254D9EA17510A59009B7B3B /* XMLDictionary.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2BAEAE015D00E6E00838B54 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -43,6 +56,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C254D9EE17510A59009B7B3B /* libXMLDictionary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libXMLDictionary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2BAEAE215D00E6E00838B54 /* libXMLDictionary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libXMLDictionary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2BAEAE515D00E6E00838B54 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C2BAEAE915D00E6E00838B54 /* XMLDictionary-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XMLDictionary-Prefix.pch"; sourceTree = "<group>"; };
@@ -58,6 +72,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C254D9E717510A59009B7B3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C254D9E817510A59009B7B3B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2BAEADF15D00E6E00838B54 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -95,6 +117,7 @@
 			children = (
 				C2BAEAE215D00E6E00838B54 /* libXMLDictionary.a */,
 				C2BAEAF315D00E6E00838B54 /* XMLDictionaryTests.octest */,
+				C254D9EE17510A59009B7B3B /* libXMLDictionary.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -149,9 +172,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C2BAEAE115D00E6E00838B54 /* XMLDictionary */ = {
+		C254D9E417510A59009B7B3B /* XMLDictionary-OSX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C2BAEB0715D00E6E00838B54 /* Build configuration list for PBXNativeTarget "XMLDictionary" */;
+			buildConfigurationList = C254D9EB17510A59009B7B3B /* Build configuration list for PBXNativeTarget "XMLDictionary-OSX" */;
+			buildPhases = (
+				C254D9E517510A59009B7B3B /* Sources */,
+				C254D9E717510A59009B7B3B /* Frameworks */,
+				C254D9E917510A59009B7B3B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "XMLDictionary-OSX";
+			productName = XMLDictionary;
+			productReference = C254D9EE17510A59009B7B3B /* libXMLDictionary.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C2BAEAE115D00E6E00838B54 /* XMLDictionary-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2BAEB0715D00E6E00838B54 /* Build configuration list for PBXNativeTarget "XMLDictionary-iOS" */;
 			buildPhases = (
 				C2BAEADE15D00E6E00838B54 /* Sources */,
 				C2BAEADF15D00E6E00838B54 /* Frameworks */,
@@ -161,7 +201,7 @@
 			);
 			dependencies = (
 			);
-			name = XMLDictionary;
+			name = "XMLDictionary-iOS";
 			productName = XMLDictionary;
 			productReference = C2BAEAE215D00E6E00838B54 /* libXMLDictionary.a */;
 			productType = "com.apple.product-type.library.static";
@@ -206,7 +246,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C2BAEAE115D00E6E00838B54 /* XMLDictionary */,
+				C2BAEAE115D00E6E00838B54 /* XMLDictionary-iOS */,
+				C254D9E417510A59009B7B3B /* XMLDictionary-OSX */,
 				C2BAEAF215D00E6E00838B54 /* XMLDictionaryTests */,
 			);
 		};
@@ -240,6 +281,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C254D9E517510A59009B7B3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C254D9E617510A59009B7B3B /* XMLDictionary.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2BAEADE15D00E6E00838B54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -262,7 +311,7 @@
 /* Begin PBXTargetDependency section */
 		C2BAEAFA15D00E6E00838B54 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C2BAEAE115D00E6E00838B54 /* XMLDictionary */;
+			target = C2BAEAE115D00E6E00838B54 /* XMLDictionary-iOS */;
 			targetProxy = C2BAEAF915D00E6E00838B54 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -279,6 +328,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C254D9EC17510A59009B7B3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				DSTROOT = /tmp/XMLDictionary.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XMLDictionary/XMLDictionary-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = XMLDictionary;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C254D9ED17510A59009B7B3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				DSTROOT = /tmp/XMLDictionary.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XMLDictionary/XMLDictionary-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = XMLDictionary;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		C2BAEB0515D00E6E00838B54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -332,7 +409,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XMLDictionary/XMLDictionary-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = XMLDictionary;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -344,7 +421,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XMLDictionary/XMLDictionary-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = XMLDictionary;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -382,6 +459,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C254D9EB17510A59009B7B3B /* Build configuration list for PBXNativeTarget "XMLDictionary-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C254D9EC17510A59009B7B3B /* Debug */,
+				C254D9ED17510A59009B7B3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C2BAEADC15D00E6E00838B54 /* Build configuration list for PBXProject "XMLDictionary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -391,7 +477,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C2BAEB0715D00E6E00838B54 /* Build configuration list for PBXNativeTarget "XMLDictionary" */ = {
+		C2BAEB0715D00E6E00838B54 /* Build configuration list for PBXNativeTarget "XMLDictionary-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C2BAEB0815D00E6E00838B54 /* Debug */,
