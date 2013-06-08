@@ -1,7 +1,7 @@
 //
 //  XMLDictionary.m
 //
-//  Version 1.1
+//  Version 1.2
 //
 //  Created by Nick Lockwood on 15/11/2010.
 //  Copyright 2010 Charcoal Design. All rights reserved.
@@ -38,52 +38,78 @@
 #endif
 
 
-@interface XMLDictionaryParser : NSObject<NSXMLParserDelegate>
+@interface XMLDictionaryParser () <NSXMLParserDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *root;
 @property (nonatomic, strong) NSMutableArray *stack;
-@property (nonatomic, strong, readonly) NSMutableDictionary *top;
 @property (nonatomic, strong) NSMutableString *text;
-
-+ (NSMutableDictionary *)dictionaryWithXMLData:(NSData *)data;
-+ (NSMutableDictionary *)dictionaryWithXMLFile:(NSString *)path;
-+ (NSString *)xmlStringForNode:(id)node withNodeName:(NSString *)nodeName;
 
 @end
 
 
 @implementation XMLDictionaryParser
 
-- (XMLDictionaryParser *)initWithXMLData:(NSData *)data
++ (XMLDictionaryParser *)sharedInstance
 {
-	if ((self = [super init]))
-	{
-		NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-		[parser setDelegate:self];
-		[parser parse];
-	}
-	return self;
+    return [[self alloc] init];
 }
 
-+ (NSMutableDictionary *)dictionaryWithXMLData:(NSData *)data
-{	
-	return [[[XMLDictionaryParser alloc] initWithXMLData:data] root];
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        _collapseTextNodes = YES;
+        _trimWhiteSpace = YES;
+        _alwaysUseArrays = NO;
+        _preserveComments = NO;
+    }
+    return self;
 }
 
-+ (NSMutableDictionary *)dictionaryWithXMLFile:(NSString *)path
+- (id)copyWithZone:(NSZone *)zone
+{
+    XMLDictionaryParser *copy = [[isa allocWithZone:zone] init];
+    copy.collapseTextNodes = _collapseTextNodes;
+    copy.trimWhiteSpace = _trimWhiteSpace;
+    copy.alwaysUseArrays = _alwaysUseArrays;
+    copy.preserveComments = _preserveComments;
+    copy.attributesMode = _attributesMode;
+    copy.nodeNameMode = _nodeNameMode;
+    return copy;
+}
+
+- (NSDictionary *)dictionaryWithData:(NSData *)data
+{
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
+    [parser setDelegate:self];
+    [parser parse];
+    id result = _root;
+    _root = nil;
+    _stack = nil;
+    _text = nil;
+    return result;
+}
+
+- (NSDictionary *)dictionaryWithString:(NSString *)string
+{
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    return [self dictionaryWithData:data];
+}
+
+- (NSDictionary *)dictionaryWithFile:(NSString *)path
 {	
 	NSData *data = [NSData dataWithContentsOfFile:path];
-	return [self dictionaryWithXMLData:data];
+	return [self dictionaryWithData:data];
 }
 
-+ (NSString *)xmlStringForNode:(id)node withNodeName:(NSString *)nodeName
++ (NSString *)XMLStringForNode:(id)node withNodeName:(NSString *)nodeName
 {	
     if ([node isKindOfClass:[NSArray class]])
     {
         NSMutableArray *nodes = [NSMutableArray arrayWithCapacity:[node count]];
         for (id individualNode in node)
         {
-            [nodes addObject:[self xmlStringForNode:individualNode withNodeName:nodeName]];
+            [nodes addObject:[self XMLStringForNode:individualNode withNodeName:nodeName]];
         }
         return [nodes componentsJoinedByString:@"\n"];
     }
@@ -93,7 +119,7 @@
         NSMutableString *attributeString = [NSMutableString string];
         for (NSString *key in [attributes allKeys])
         {
-            [attributeString appendFormat:@" %@=\"%@\"", [key xmlEncodedString], [[attributes objectForKey:key] xmlEncodedString]];
+            [attributeString appendFormat:@" %@=\"%@\"", [key XMLEncodedString], [attributes[key] XMLEncodedString]];
         }
         
         NSString *innerXML = [node innerXML];
@@ -108,41 +134,34 @@
     }
     else
     {
-        return [NSString stringWithFormat:@"<%1$@>%2$@</%1$@>", nodeName, [[node description] xmlEncodedString]];
+        return [NSString stringWithFormat:@"<%1$@>%2$@</%1$@>", nodeName, [[node description] XMLEncodedString]];
     }
-}
-
-- (NSMutableDictionary *)top
-{
-	return [_stack lastObject];
 }
 
 - (void)endText
 {
-	if (TRIM_WHITE_SPACE)
+	if (_trimWhiteSpace)
 	{
-		_text = (NSMutableString *)[_text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		_text = [[_text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] mutableCopy];
 	}
-	if (_text && ![_text isEqualToString:@""] && [XML_TEXT_KEY length])
+	if ([_text length])
 	{
-		id existing = [self.top objectForKey:XML_TEXT_KEY];
-		if (existing)
-		{
-			if ([existing isKindOfClass:[NSMutableArray class]])
-			{
-				[(NSMutableArray *)existing addObject:_text];
-			}
-			else
-			{
-				[self.top setObject:[NSMutableArray arrayWithObjects:existing, _text, nil] forKey:XML_TEXT_KEY];
-			}
-		}
+        NSMutableDictionary *top = [_stack lastObject];
+		id existing = top[XMLDictionaryTextKey];
+        if ([existing isKindOfClass:[NSArray class]])
+        {
+            [existing addObject:_text];
+        }
+        else if (existing)
+        {
+            top[XMLDictionaryTextKey] = [@[existing, _text] mutableCopy];
+        }
 		else
 		{
-			[self.top setObject:_text forKey:XML_TEXT_KEY];
+			top[XMLDictionaryTextKey] = _text;
 		}
 	}
-	self.text = nil;
+	_text = nil;
 }
 
 - (void)addText:(NSString *)text
@@ -162,53 +181,80 @@
 	[self endText];
 	
 	NSMutableDictionary *node = [NSMutableDictionary dictionary];
-	if ([XML_NAME_KEY length])
+	switch (_nodeNameMode)
 	{
-		[node setObject:elementName forKey:XML_NAME_KEY];
+        case XMLDictionaryNodeNameModeRootOnly:
+        {
+            if (!_root)
+            {
+                node[XMLDictionaryNodeNameKey] = elementName;
+            }
+            break;
+        }
+        case XMLDictionaryNodeNameModeAlways:
+        {
+            node[XMLDictionaryNodeNameKey] = elementName;
+            break;
+        }
+        case XMLDictionaryNodeNameModeNever:
+        {
+            break;
+        }
 	}
+    
 	if ([attributeDict count])
 	{
-		if ([XML_ATTRIBUTE_PREFIX length])
-		{
-			for (NSString *key in [attributeDict allKeys])
-			{
-				[node setObject:[attributeDict objectForKey:key]
-						  forKey:[XML_ATTRIBUTE_PREFIX stringByAppendingString:key]];
-			}
-		}
-		else if ([XML_ATTRIBUTES_KEY length])
-		{
-			[node setObject:attributeDict forKey:XML_ATTRIBUTES_KEY];
-		}
-		else
-		{
-			[node addEntriesFromDictionary:attributeDict];
-		}
+        switch (_attributesMode)
+        {
+            case XMLDictionaryAttributesModePrefixed:
+            {
+                for (NSString *key in [attributeDict allKeys])
+                {
+                    node[[XMLDictionaryAttributePrefix stringByAppendingString:key]] = attributeDict[key];
+                }
+                break;
+            }
+            case XMLDictionaryAttributesModeDictionary:
+            {
+                node[XMLDictionaryAttributesKey] = attributeDict;
+                break;
+            }
+            case XMLDictionaryAttributesModeUnprefixed:
+            {
+                [node addEntriesFromDictionary:attributeDict];
+                break;
+            }
+            case XMLDictionaryAttributesModeDiscard:
+            {
+                break;
+            }
+        }
 	}
 	
-	if (!self.top)
+	if (!_root)
 	{
-		self.root = node;
-		self.stack = [NSMutableArray arrayWithObject:node];
+		_root = node;
+		_stack = [NSMutableArray arrayWithObject:node];
 	}
 	else
 	{
-		id existing = [self.top objectForKey:elementName];
-		if (existing)
-		{
-			if ([existing isKindOfClass:[NSMutableArray class]])
-			{
-				[(NSMutableArray *)existing addObject:node];
-			}
-			else
-			{
-				[self.top setObject:[NSMutableArray arrayWithObjects:existing, node, nil]
-							  forKey:elementName];
-			}
-		}
+        NSMutableDictionary *top = [_stack lastObject];
+		id existing = top[elementName];
+        if ([existing isKindOfClass:[NSArray class]])
+        {
+            [existing addObject:node];
+        }
+        else if (existing)
+        {
+            top[elementName] = [@[existing, node] mutableCopy];
+        }
+        else if (_alwaysUseArrays)
+        {
+            top[elementName] = [NSMutableArray arrayWithObject:node];
+        }
 		else
 		{
-			[self.top setObject:node forKey:elementName];
+			top[elementName] = node;
 		}
 		[_stack addObject:node];
 	}
@@ -224,17 +270,14 @@
 	{
 		for (NSString *name in dict)
 		{
-			id object = [dict objectForKey:name];
+			id object = dict[name];
 			if (object == node)
 			{
 				return name;
 			}
-			else if ([object isKindOfClass:[NSArray class]])
+			else if ([object isKindOfClass:[NSArray class]] && [object containsObject:node])
 			{
-				if ([(NSArray *)object containsObject:node])
-				{
-					return name;
-				}
+				return name;
 			}
 		}
 	}
@@ -244,25 +287,25 @@
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {	
 	[self endText];
-	if (COLLAPSE_TEXT_NODES &&
-		!self.top.attributes &&
-		!self.top.childNodes &&
-        !self.top.comments &&
-		self.top.innerText)
+    
+    NSMutableDictionary *top = [_stack lastObject];
+	if (_collapseTextNodes &&
+		!top.attributes && !top.childNodes &&
+        !top.comments && top.innerText)
 	{
-		NSDictionary *node = self.top;
 		[_stack removeLastObject];
-		NSString *nodeName = [self nameForNode:node inDictionary:self.top];
+        NSMutableDictionary *newTop = [_stack lastObject];
+		NSString *nodeName = [self nameForNode:top inDictionary:newTop];
 		if (nodeName)
 		{
-			id parentNode = [self.top objectForKey:nodeName];
-			if ([parentNode isKindOfClass:[NSMutableArray class]])
+			id parentNode = newTop[nodeName];
+			if ([parentNode isKindOfClass:[NSArray class]])
 			{
-				[parentNode replaceObjectAtIndex:[parentNode count] - 1 withObject:node.innerText];
+				parentNode[[parentNode count] - 1] = top.innerText;
 			}
 			else
 			{
-				[self.top setObject:node.innerText forKey:nodeName];
+				newTop[nodeName] = top.innerText;
 			}
 		}
 	}
@@ -284,13 +327,14 @@
 
 - (void)parser:(NSXMLParser *)parser foundComment:(NSString *)comment
 {
-	if ([XML_COMMENTS_KEY length])
+	if (_preserveComments)
 	{
-		NSMutableArray *comments = [self.top objectForKey:XML_COMMENTS_KEY];
+        NSMutableDictionary *top = [_stack lastObject];
+		NSMutableArray *comments = top[XMLDictionaryCommentsKey];
 		if (!comments)
 		{
-			comments = [NSMutableArray arrayWithObject:comment];
-			[self.top setObject:comments forKey:XML_COMMENTS_KEY];
+			comments = [@[comment] mutableCopy];
+			top[XMLDictionaryCommentsKey] = comments;
 		}
 		else
 		{
@@ -306,42 +350,36 @@
 
 + (NSDictionary *)dictionaryWithXMLData:(NSData *)data
 {
-	return [XMLDictionaryParser dictionaryWithXMLData:data];
+	return [[[XMLDictionaryParser sharedInstance] copy] dictionaryWithData:data];
 }
 
 + (NSDictionary *)dictionaryWithXMLString:(NSString *)string
 {
-	NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-	return [XMLDictionaryParser dictionaryWithXMLData:data];
+	return [[[XMLDictionaryParser sharedInstance] copy] dictionaryWithString:string];
 }
 
 + (NSDictionary *)dictionaryWithXMLFile:(NSString *)path
 {
-	return [XMLDictionaryParser dictionaryWithXMLFile:path];
-}
-
-- (id)attributeForKey:(NSString *)key
-{
-	return [[self attributes] objectForKey:key];
+	return [[[XMLDictionaryParser sharedInstance] copy] dictionaryWithFile:path];
 }
 
 - (NSDictionary *)attributes
 {
-	NSDictionary *attributes = [self objectForKey:XML_ATTRIBUTES_KEY];
+	NSDictionary *attributes = self[XMLDictionaryAttributesKey];
 	if (attributes)
 	{
 		return [attributes count]? attributes: nil;
 	}
-	else if ([XML_ATTRIBUTE_PREFIX length])
+	else
 	{
 		NSMutableDictionary *filteredDict = [NSMutableDictionary dictionaryWithDictionary:self];
-        [filteredDict removeObjectsForKeys:[NSArray arrayWithObjects:XML_COMMENTS_KEY, XML_TEXT_KEY, XML_NAME_KEY, nil]];
+        [filteredDict removeObjectsForKeys:@[XMLDictionaryCommentsKey, XMLDictionaryTextKey, XMLDictionaryNodeNameKey]];
         for (NSString *key in [filteredDict allKeys])
         {
             [filteredDict removeObjectForKey:key];
-            if ([key hasPrefix:XML_ATTRIBUTE_PREFIX])
+            if ([key hasPrefix:XMLDictionaryAttributePrefix])
             {
-                [filteredDict setObject:[self objectForKey:key] forKey:[key substringFromIndex:[XML_ATTRIBUTE_PREFIX length]]];
+                filteredDict[[key substringFromIndex:[XMLDictionaryAttributePrefix length]]] = self[key];
             }
         }
         return [filteredDict count]? filteredDict: nil;
@@ -351,16 +389,13 @@
 
 - (NSDictionary *)childNodes
 {	
-	NSMutableDictionary *filteredDict = [NSMutableDictionary dictionaryWithDictionary:self];
-	[filteredDict removeObjectsForKeys:[NSArray arrayWithObjects:XML_ATTRIBUTES_KEY, XML_COMMENTS_KEY, XML_TEXT_KEY, XML_NAME_KEY, nil]];
-	if ([XML_ATTRIBUTE_PREFIX length])
+	NSMutableDictionary *filteredDict = [self mutableCopy];
+	[filteredDict removeObjectsForKeys:@[XMLDictionaryAttributesKey, XMLDictionaryCommentsKey, XMLDictionaryTextKey, XMLDictionaryNodeNameKey]];
+	for (NSString *key in [filteredDict allKeys])
     {
-        for (NSString *key in [filteredDict allKeys])
+        if ([key hasPrefix:XMLDictionaryAttributePrefix])
         {
-            if ([key hasPrefix:XML_ATTRIBUTE_PREFIX])
-            {
-                [filteredDict removeObjectForKey:key];
-            }
+            [filteredDict removeObjectForKey:key];
         }
     }
     return [filteredDict count]? filteredDict: nil;
@@ -368,17 +403,17 @@
 
 - (NSArray *)comments
 {
-	return [self objectForKey:XML_COMMENTS_KEY];
+	return self[XMLDictionaryCommentsKey];
 }
 
 - (NSString *)nodeName
 {
-	return [self objectForKey:XML_NAME_KEY];
+	return self[XMLDictionaryNodeNameKey];
 }
 
 - (id)innerText
 {	
-	id text = [self objectForKey:XML_TEXT_KEY];
+	id text = self[XMLDictionaryTextKey];
 	if ([text isKindOfClass:[NSArray class]])
 	{
 		return [text componentsJoinedByString:@"\n"];
@@ -395,27 +430,27 @@
 	
 	for (NSString *comment in [self comments])
 	{
-        [nodes addObject:[NSString stringWithFormat:@"<!--%@-->", [comment xmlEncodedString]]];
+        [nodes addObject:[NSString stringWithFormat:@"<!--%@-->", [comment XMLEncodedString]]];
 	}
     
     NSDictionary *childNodes = [self childNodes];
 	for (NSString *key in childNodes)
 	{
-		[nodes addObject:[XMLDictionaryParser xmlStringForNode:[childNodes objectForKey:key] withNodeName:key]];
+		[nodes addObject:[XMLDictionaryParser XMLStringForNode:childNodes[key] withNodeName:key]];
 	}
 	
     NSString *text = [self innerText];
     if (text)
     {
-        [nodes addObject:[text xmlEncodedString]];
+        [nodes addObject:[text XMLEncodedString]];
     }
 	
 	return [nodes componentsJoinedByString:@"\n"];
 }
 
-- (NSString *)xmlString
+- (NSString *)XMLString
 {	
-	return [XMLDictionaryParser xmlStringForNode:self withNodeName:[self nodeName] ?: @"root"];
+	return [XMLDictionaryParser XMLStringForNode:self withNodeName:[self nodeName] ?: @"root"];
 }
 
 @end
@@ -423,7 +458,7 @@
 
 @implementation NSString (XMLDictionary)
 
-- (NSString *)xmlEncodedString
+- (NSString *)XMLEncodedString
 {	
 	return [[[[[self stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]
                stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"]
