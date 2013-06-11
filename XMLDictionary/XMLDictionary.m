@@ -1,7 +1,7 @@
 //
 //  XMLDictionary.m
 //
-//  Version 1.2
+//  Version 1.2.1
 //
 //  Created by Nick Lockwood on 15/11/2010.
 //  Copyright 2010 Charcoal Design. All rights reserved.
@@ -68,7 +68,7 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    XMLDictionaryParser *copy = [[isa allocWithZone:zone] init];
+    XMLDictionaryParser *copy = [[[self class] allocWithZone:zone] init];
     copy.collapseTextNodes = _collapseTextNodes;
     copy.trimWhiteSpace = _trimWhiteSpace;
     copy.alwaysUseArrays = _alwaysUseArrays;

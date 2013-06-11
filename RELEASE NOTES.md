@@ -1,3 +1,7 @@
+Version 1.2.1
+
+- Removed isa reference, deprecated in iOS 7
+
 Version 1.2
 
 - Exposed XMLDictionaryParser object, which can be used to configure the parser
