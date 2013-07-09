@@ -1,3 +1,7 @@
+Version 1.2.2
+
+- sharedInstance method no longer returns a new instance each time
+
 Version 1.2.1
 
 - Removed isa reference, deprecated in iOS 7

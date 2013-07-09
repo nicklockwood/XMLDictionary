@@ -1,7 +1,7 @@
 //
 //  XMLDictionary.m
 //
-//  Version 1.2.1
+//  Version 1.2.2
 //
 //  Created by Nick Lockwood on 15/11/2010.
 //  Copyright 2010 Charcoal Design. All rights reserved.
@@ -51,7 +51,13 @@
 
 + (XMLDictionaryParser *)sharedInstance
 {
-    return [[self alloc] init];
+    static dispatch_once_t once;
+    static XMLDictionaryParser *sharedInstance;
+    dispatch_once(&once, ^{
+        
+        sharedInstance = [[XMLDictionaryParser alloc] init];
+    });
+    return sharedInstance;
 }
 
 - (id)init

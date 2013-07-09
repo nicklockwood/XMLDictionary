@@ -1,7 +1,7 @@
 //
 //  XMLDictionary.h
 //
-//  Version 1.2.1
+//  Version 1.2.2
 //
 //  Created by Nick Lockwood on 15/11/2010.
 //  Copyright 2010 Charcoal Design. All rights reserved.
