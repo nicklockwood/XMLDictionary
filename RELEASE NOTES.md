@@ -1,3 +1,8 @@
+Version 1.3
+
+- added stripEmptyNodes property (defaults to YES)
+- added arrayValueForKeyPath, stringValueForKeyPath and dictionaryValueForKeyPath methods to simplify working with data
+
 Version 1.2.2
 
 - sharedInstance method no longer returns a new instance each time

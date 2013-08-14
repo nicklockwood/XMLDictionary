@@ -53,11 +53,15 @@ Use the following properties to tweak the parsing behaviour:
 
     @property (nonatomic, assign) BOOL collapseTextNodes;
     
-If YES (the default value), tags that contain only text and have no children or attributes will be collapsed into a single string object, simplifying traversal of the object tree.
+If YES (the default value), tags that contain only text and have no children, attributes or comments will be collapsed into a single string object, simplifying traversal of the object tree.
+
+    @property (nonatomic, assign) BOOL stripEmptyNodes;
+
+If YES (the default value), tags that are empty (have no children, attributes, text or comments) will be stripped.
     
     @property (nonatomic, assign) BOOL trimWhiteSpace;
     
-If YES (the default), leading and trailing white space will be trimmed from text nodes, and text nodes containing only white space will be omitted from the dictionary.
+If YES (the default value), leading and trailing white space will be trimmed from text nodes, and text nodes containing only white space will be omitted from the dictionary.
     
     @property (nonatomic, assign) BOOL alwaysUseArrays;
     
@@ -124,6 +128,18 @@ Get the contents of the node as an XML-encoded string. This XML string will not 
 	- (NSString *)XMLString;
 
 Get the node and its content as an XML-encoded string. If the node name is not known, the top level tag will be called `<root>`.
+
+    - (NSArray *)arrayValueForKeyPath:(NSString *)keyPath;
+    
+Works just like `valueForKeyPath:` except that the value returned will always be an array. So if there is only a single value, it will be returned as `@[value]`.
+    
+    - (NSString *)stringValueForKeyPath:(NSString *)keyPath;
+    
+Works just like `valueForKeyPath:` except that the value returned will always be a string. So if the value is a dictionary, the text value of `innerText` will be returned, and if the value is an array, the first item will be returned.
+    
+    - (NSDictionary *)dictionaryValueForKeyPath:(NSString *)keyPath;
+
+Works just like `valueForKeyPath:` except that the value returned will always be a dictionary. So if the collapseTextNodes option is enabled and the value is a string, this will convert it back to a dictionary before returning, and if the value is an array, the first item will be returned.
 
 
 Usage

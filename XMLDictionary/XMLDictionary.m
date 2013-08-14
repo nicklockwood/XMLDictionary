@@ -1,7 +1,7 @@
 //
 //  XMLDictionary.m
 //
-//  Version 1.2.2
+//  Version 1.3
 //
 //  Created by Nick Lockwood on 15/11/2010.
 //  Copyright 2010 Charcoal Design. All rights reserved.
@@ -65,6 +65,7 @@
     if ((self = [super init]))
     {
         _collapseTextNodes = YES;
+        _stripEmptyNodes = YES;
         _trimWhiteSpace = YES;
         _alwaysUseArrays = NO;
         _preserveComments = NO;
@@ -76,6 +77,7 @@
 {
     XMLDictionaryParser *copy = [[[self class] allocWithZone:zone] init];
     copy.collapseTextNodes = _collapseTextNodes;
+    copy.stripEmptyNodes = _stripEmptyNodes;
     copy.trimWhiteSpace = _trimWhiteSpace;
     copy.alwaysUseArrays = _alwaysUseArrays;
     copy.preserveComments = _preserveComments;
@@ -295,29 +297,38 @@
 	[self endText];
     
     NSMutableDictionary *top = [_stack lastObject];
-	if (_collapseTextNodes &&
-		!top.attributes && !top.childNodes &&
-        !top.comments && top.innerText)
-	{
-		[_stack removeLastObject];
+    [_stack removeLastObject];
+    
+	if (!top.attributes && !top.childNodes && !top.comments)
+    {
         NSMutableDictionary *newTop = [_stack lastObject];
-		NSString *nodeName = [self nameForNode:top inDictionary:newTop];
-		if (nodeName)
-		{
-			id parentNode = newTop[nodeName];
-			if ([parentNode isKindOfClass:[NSArray class]])
-			{
-				parentNode[[parentNode count] - 1] = top.innerText;
-			}
-			else
-			{
-				newTop[nodeName] = top.innerText;
-			}
-		}
-	}
-	else
-	{
-		[_stack removeLastObject];
+        NSString *nodeName = [self nameForNode:top inDictionary:newTop];
+        if (nodeName)
+        {
+            id parentNode = newTop[nodeName];
+            if (top.innerText && _collapseTextNodes)
+            {
+                if ([parentNode isKindOfClass:[NSArray class]])
+                {
+                    parentNode[[parentNode count] - 1] = top.innerText;
+                }
+                else
+                {
+                    newTop[nodeName] = top.innerText;
+                }
+            }
+            else if (!top.innerText && _stripEmptyNodes)
+            {
+                if ([parentNode isKindOfClass:[NSArray class]])
+                {
+                    [parentNode removeLastObject];
+                }
+                else
+                {
+                    [newTop removeObjectForKey:nodeName];
+                }
+            }
+        }
 	}
 }
 
@@ -457,6 +468,44 @@
 - (NSString *)XMLString
 {	
 	return [XMLDictionaryParser XMLStringForNode:self withNodeName:[self nodeName] ?: @"root"];
+}
+
+- (NSArray *)arrayValueForKeyPath:(NSString *)keyPath
+{
+    id value = [self valueForKeyPath:keyPath];
+    if (value && ![value isKindOfClass:[NSArray class]])
+    {
+        return @[value];
+    }
+    return value;
+}
+
+- (NSString *)stringValueForKeyPath:(NSString *)keyPath
+{
+    id value = [self valueForKeyPath:keyPath];
+    if ([value isKindOfClass:[NSArray class]])
+    {
+        value = [value count]? value[0]: nil;
+    }
+    if ([value isKindOfClass:[NSDictionary class]])
+    {
+        return [value innerText];
+    }
+    return value;
+}
+
+- (NSDictionary *)dictionaryValueForKeyPath:(NSString *)keyPath
+{
+    id value = [self valueForKeyPath:keyPath];
+    if ([value isKindOfClass:[NSArray class]])
+    {
+        value = [value count]? value[0]: nil;
+    }
+    if ([value isKindOfClass:[NSString class]])
+    {
+        return @{XMLDictionaryTextKey: value};
+    }
+    return value;
 }
 
 @end

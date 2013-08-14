@@ -1,7 +1,7 @@
 //
 //  XMLDictionary.h
 //
-//  Version 1.2.2
+//  Version 1.3
 //
 //  Created by Nick Lockwood on 15/11/2010.
 //  Copyright 2010 Charcoal Design. All rights reserved.
@@ -63,6 +63,7 @@ static NSString *const XMLDictionaryAttributePrefix = @"_";
 + (XMLDictionaryParser *)sharedInstance;
 
 @property (nonatomic, assign) BOOL collapseTextNodes; // defaults to YES
+@property (nonatomic, assign) BOOL stripEmptyNodes;   // defaults to YES
 @property (nonatomic, assign) BOOL trimWhiteSpace;    // defaults to YES
 @property (nonatomic, assign) BOOL alwaysUseArrays;   // defaults to NO
 @property (nonatomic, assign) BOOL preserveComments;  // defaults to NO
@@ -90,6 +91,10 @@ static NSString *const XMLDictionaryAttributePrefix = @"_";
 - (NSString *)innerText;
 - (NSString *)innerXML;
 - (NSString *)XMLString;
+
+- (NSArray *)arrayValueForKeyPath:(NSString *)keyPath;
+- (NSString *)stringValueForKeyPath:(NSString *)keyPath;
+- (NSDictionary *)dictionaryValueForKeyPath:(NSString *)keyPath;
 
 @end
 
