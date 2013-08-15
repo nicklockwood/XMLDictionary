@@ -59,14 +59,18 @@ static NSString *const XMLDictionaryAttributePrefix = @"_";
 
 
 @interface XMLDictionaryParser : NSObject <NSCopying>
+{
+    NSString *_rootNodeName;
+}
 
 + (XMLDictionaryParser *)sharedInstance;
 
-@property (nonatomic, assign) BOOL collapseTextNodes; // defaults to YES
-@property (nonatomic, assign) BOOL stripEmptyNodes;   // defaults to YES
-@property (nonatomic, assign) BOOL trimWhiteSpace;    // defaults to YES
-@property (nonatomic, assign) BOOL alwaysUseArrays;   // defaults to NO
-@property (nonatomic, assign) BOOL preserveComments;  // defaults to NO
+@property (nonatomic, assign) BOOL collapseTextNodes;           // defaults to YES
+@property (nonatomic, assign) BOOL stripEmptyNodes;             // defaults to YES
+@property (nonatomic, assign) BOOL trimWhiteSpace;              // defaults to YES
+@property (nonatomic, assign) BOOL alwaysUseArrays;             // defaults to NO
+@property (nonatomic, assign) BOOL preserveComments;            // defaults to NO
+@property (nonatomic, assign) BOOL includeRootNodeToDictionary; // defaults to NO
 
 @property (nonatomic, assign) XMLDictionaryAttributesMode attributesMode;
 @property (nonatomic, assign) XMLDictionaryNodeNameMode nodeNameMode;
