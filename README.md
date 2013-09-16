@@ -35,10 +35,6 @@ Installation
 
 To use the XMLDictionary in an app, just drag the class files into your project.
 
-Or, with cocoapods, add this to your Podfile:
-
-    pod 'XMLDictionary'
-
 
 XMLDictionaryParser
 ---------------------
