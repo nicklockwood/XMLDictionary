@@ -334,6 +334,10 @@
                     [newTop removeObjectForKey:nodeName];
                 }
             }
+            else if (!top.innerText && !_collapseTextNodes && !_stripEmptyNodes)
+            {
+                top[XMLDictionaryTextKey] = @"";
+            }
         }
 	}
 }
