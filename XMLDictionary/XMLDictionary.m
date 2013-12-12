@@ -84,6 +84,7 @@
     copy.preserveComments = _preserveComments;
     copy.attributesMode = _attributesMode;
     copy.nodeNameMode = _nodeNameMode;
+    copy.includeRootNodeToDictionary = _includeRootNodeToDictionary;
     return copy;
 }
 
