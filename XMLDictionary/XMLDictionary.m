@@ -69,6 +69,7 @@
         _trimWhiteSpace = YES;
         _alwaysUseArrays = NO;
         _preserveComments = NO;
+        _includeRootNodeToDictionary = NO;
     }
     return self;
 }
@@ -83,6 +84,7 @@
     copy.preserveComments = _preserveComments;
     copy.attributesMode = _attributesMode;
     copy.nodeNameMode = _nodeNameMode;
+    copy.includeRootNodeToDictionary = _includeRootNodeToDictionary;
     return copy;
 }
 
@@ -92,7 +94,11 @@
     [parser setDelegate:self];
     [parser parse];
     id result = _root;
+    if (_includeRootNodeToDictionary) {
+        result = @{_rootNodeName : _root};
+    }
     _root = nil;
+    _rootNodeName = nil;
     _stack = nil;
     _text = nil;
     return result;
@@ -243,6 +249,7 @@
 	{
 		_root = node;
 		_stack = [NSMutableArray arrayWithObject:node];
+        _rootNodeName = elementName;
 	}
 	else
 	{
