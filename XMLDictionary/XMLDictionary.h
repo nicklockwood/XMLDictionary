@@ -70,6 +70,7 @@ static NSString *const XMLDictionaryAttributePrefix = @"_";
 @property (nonatomic, assign) XMLDictionaryAttributesMode attributesMode;
 @property (nonatomic, assign) XMLDictionaryNodeNameMode nodeNameMode;
 
+- (NSDictionary *)dictionaryWithParser:(NSXMLParser *)parser;
 - (NSDictionary *)dictionaryWithData:(NSData *)data;
 - (NSDictionary *)dictionaryWithString:(NSString *)string;
 - (NSDictionary *)dictionaryWithFile:(NSString *)path;
@@ -79,6 +80,7 @@ static NSString *const XMLDictionaryAttributePrefix = @"_";
 
 @interface NSDictionary (XMLDictionary)
 
++ (NSDictionary *)dictionaryWithXMLParser:(NSXMLParser *)parser;
 + (NSDictionary *)dictionaryWithXMLData:(NSData *)data;
 + (NSDictionary *)dictionaryWithXMLString:(NSString *)string;
 + (NSDictionary *)dictionaryWithXMLFile:(NSString *)path;

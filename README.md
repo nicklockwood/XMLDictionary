@@ -45,36 +45,37 @@ You can create new instances of XMLDictionaryParser if you need to use multiple 
 
     - (NSDictionary *)dictionaryWithData:(NSData *)data;
     - (NSDictionary *)dictionaryWithString:(NSString *)string;
-    - (NSDictionary *)dictionaryWithFile:(NSString *)path; 
+    - (NSDictionary *)dictionaryWithFile:(NSString *)path;
+    - (NSDictionary *)dictionaryWithParser:(NSXMLParser *)parser;
 
 Alternatively, you can simply modify the settings of `[XMLDictionaryParser sharedInstance]` to affect the settings for all dictionaries parsed subsequently using the NSDictionary category extension methods.
 
 Use the following properties to tweak the parsing behaviour:
 
     @property (nonatomic, assign) BOOL collapseTextNodes;
-    
+
 If YES (the default value), tags that contain only text and have no children, attributes or comments will be collapsed into a single string object, simplifying traversal of the object tree.
 
     @property (nonatomic, assign) BOOL stripEmptyNodes;
 
 If YES (the default value), tags that are empty (have no children, attributes, text or comments) will be stripped.
-    
+
     @property (nonatomic, assign) BOOL trimWhiteSpace;
-    
+
 If YES (the default value), leading and trailing white space will be trimmed from text nodes, and text nodes containing only white space will be omitted from the dictionary.
-    
+
     @property (nonatomic, assign) BOOL alwaysUseArrays;
-    
+
 If `YES`, the every child node will be represented as an array, even if there is only one of them. This simplifies the logic needed to cope with properties that may be duplicated because you don't need to use `[value isKindOfClass:[NSArray class]]` to check the for the singular case. Defaults to `NO`.
-    
+
     @property (nonatomic, assign) BOOL preserveComments;
-    
+
 If `YES`, XML comments will be grouped into an array under the key `__comments` and can be accessed via the `comments` method. Defaults to `NO`.
-        
+
     @property (nonatomic, assign) XMLDictionaryAttributesMode attributesMode;
-    
+
 This property controls how XML attributes are handled. The default is `XMLDictionaryAttributesModePrefixed` meaning that attributes will be included in the dictionary, with an _ (underscore) prefix to avoid namespace collisions. Alternative values are `XMLDictionaryAttributesModeDictionary`, which will place all the attributes in a separate dictionary, `XMLDictionaryAttributesModeUnprefixed`, which includes the attributes without prefix (which may cause collisions with nodes) and `XMLDictionaryAttributesModeDiscard`, which will strip the attributes.
-    
+
     @property (nonatomic, assign) XMLDictionaryNodeNameMode nodeNameMode;
 
 This property controls how the node name is handled. The default value is `XMLDictionaryNodeNameModeRootOnly`, meaning that the node name will only be included in the root dictionary (the names for the children can be inferred from the dictionary keys, but the `nodeName` method won't work for anything except the root node). Alternative values are `XMLDictionaryNodeNameModeAlways`, meaning that the node name will be included in the dictionary with the key `__name` (and can be accessed using the `nodeName`) method, or `XMLDictionaryNodeNameModeNever` which will never include the `__name' key.
@@ -85,58 +86,62 @@ Category Methods
 
 XMLDictionary extends NSDictionary with the following methods:
 
+  + (NSDictionary *)dictionaryWithXMLParser:(NSParser *)parser;
+
+Create a new NSDictionary object from an existing NSXMLParser.  Useful if fetching data through AFNetworking.
+
 	+ (NSDictionary *)dictionaryWithXMLData:(NSData *)data;
-	
+
 Create a new NSDictionary object from XML-encoded data.
 
 	+ (NSDictionary *)dictionaryWithXMLString:(NSString *)string;
-	
+
 Create a new NSDictionary object from XML-encoded string.
-	
+
 	+ (NSDictionary *)dictionaryWithXMLFile:(NSString *)path;
 
 Create a new NSDictionary object from and XML-encoded file.
 
 	- (NSString *)attributeForKey:(NSString *)key;
-	
+
 Get the XML attribute for a given key (key name should not include prefix).
-	
+
 	- (NSDictionary *)attributes;
-	
+
 Get a dictionary of all XML attributes for a given node's dictionary. If the node has no attributes then this will return nil.
-	
+
 	- (NSDictionary *)childNodes;
-	
+
 Get a dictionary of all child nodes for a given node's dictionary. If multiple nodes have the same name they will be grouped into an array. If the node has no children then this will return nil.
-	
+
 	- (NSArray *)comments;
-	
+
 Get an array of all comments for a given node. Note that the nesting relative to other nodes is not preserved. If the node has no comments then this will return nil.
-	
+
 	- (NSString *)nodeName;
-	
+
 Get the name of the node. If the name is not known this will return nil.
-	
+
 	- (NSString *)innerText;
-	
+
 Get the text content of the node. If the node has no text content, this will return nil;
-	
+
 	- (NSString *)innerXML;
-	
+
 Get the contents of the node as an XML-encoded string. This XML string will not include the container node itself.
-	
+
 	- (NSString *)XMLString;
 
 Get the node and its content as an XML-encoded string. If the node name is not known, the top level tag will be called `<root>`.
 
     - (NSArray *)arrayValueForKeyPath:(NSString *)keyPath;
-    
+
 Works just like `valueForKeyPath:` except that the value returned will always be an array. So if there is only a single value, it will be returned as `@[value]`.
-    
+
     - (NSString *)stringValueForKeyPath:(NSString *)keyPath;
-    
+
 Works just like `valueForKeyPath:` except that the value returned will always be a string. So if the value is a dictionary, the text value of `innerText` will be returned, and if the value is an array, the first item will be returned.
-    
+
     - (NSDictionary *)dictionaryValueForKeyPath:(NSString *)keyPath;
 
 Works just like `valueForKeyPath:` except that the value returned will always be a dictionary. So if the collapseTextNodes option is enabled and the value is a string, this will convert it back to a dictionary before returning, and if the value is an array, the first item will be returned.
@@ -149,31 +154,31 @@ The simplest way to load an XML file is as follows:
 
 	NSString *filePath = [[NSBundle mainBundle] pathForResource:@"someFile" ofType:@"xml"];
 	NSDictionary *xmlDoc = [NSDictionary dictionaryWithXMLFile:filePath];
-	
+
 You can then iterate over the dictionary as you would with any other object tree, e.g. one loaded from a Plist.
 
 To access nested nodes and attributes, you can use the valueForKeyPath syntax. For example to get the string value of `<foo>` from the following XML:
-	
+
 	<root>
 		<bar cliche="true">
 			<foo>Hello World</foo>
 		</bar>
 		<banjo>Was his name-oh</banjo>
 	</root>
-	
+
 You would write:
 
 	NSString *foo = [xmlDoc valueForKeyPath:@"bar.foo"];
-		
+
 The above examples assumes that you are using the default setting for `collapseTextNodes` and `alwaysUseArrays`. If `collapseTextNodes` is disabled then you would instead access `<foo>`'s value by writing:
 
 	NSString *foo = [xmlDoc valueForKeyPath:@"bar.foo.@innerText"];
-	
+
 If the `alwaysUseArrays` option is enabled then would use one of the following, depending on the `collapseTextNodes` property:
 
     NSString *foo = [xmlDoc valueForKeyPath:@"bar.foo"][0];
     NSString *foo = [[xmlDoc valueForKeyPath:@"bar.foo"][0] innerText];
-	
+
 To get the cliche attribute of `bar`, you would write:
 
     NSString *barCliche = [xmlDoc valueForKeyPath:@"bar.@attributes.cliche"];
@@ -181,7 +186,7 @@ To get the cliche attribute of `bar`, you would write:
 If the `attributesMode` is set to the default value of `XMLDictionaryAttributesModePrefixed` then you can also do this:
 
 	NSString *barCliche = [xmlDoc valueForKeyPath:@"bar._cliche"];
-	
+
 Or if it is set to `XMLDictionaryAttributesModeUnprefixed` you would simply do this:
 
     NSString *barCliche = [xmlDoc valueForKeyPath:@"bar.cliche"];
