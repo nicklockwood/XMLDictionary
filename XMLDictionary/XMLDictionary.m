@@ -1,7 +1,7 @@
 //
 //  XMLDictionary.m
 //
-//  Version 1.3
+//  Version 1.4
 //
 //  Created by Nick Lockwood on 15/11/2010.
 //  Copyright 2010 Charcoal Design. All rights reserved.
@@ -69,6 +69,7 @@
         _trimWhiteSpace = YES;
         _alwaysUseArrays = NO;
         _preserveComments = NO;
+        _wrapRootNode = YES;
     }
     return self;
 }
@@ -83,6 +84,7 @@
     copy.preserveComments = _preserveComments;
     copy.attributesMode = _attributesMode;
     copy.nodeNameMode = _nodeNameMode;
+    copy.wrapRootNode = _wrapRootNode;
     return copy;
 }
 
@@ -127,7 +129,7 @@
         NSMutableString *attributeString = [NSMutableString string];
         for (NSString *key in [attributes allKeys])
         {
-            [attributeString appendFormat:@" %@=\"%@\"", [key XMLEncodedString], [attributes[key] XMLEncodedString]];
+            [attributeString appendFormat:@" %@=\"%@\"", [[key description] XMLEncodedString], [[attributes[key] description] XMLEncodedString]];
         }
         
         NSString *innerXML = [node innerXML];
@@ -241,8 +243,13 @@
 	
 	if (!_root)
 	{
-		_root = node;
-		_stack = [NSMutableArray arrayWithObject:node];
+        _root = node;
+        _stack = [NSMutableArray arrayWithObject:node];
+        if (_wrapRootNode)
+        {
+            _root = [NSMutableDictionary dictionaryWithObject:_root forKey:elementName];
+            [_stack insertObject:_root atIndex:0];
+        }
 	}
 	else
 	{
@@ -466,8 +473,16 @@
 }
 
 - (NSString *)XMLString
-{	
-	return [XMLDictionaryParser XMLStringForNode:self withNodeName:[self nodeName] ?: @"root"];
+{
+    if ([self count] == 1 && ![self nodeName])
+    {
+        //ignore outermost dictionary
+        return [self innerXML];
+    }
+    else
+    {
+        return [XMLDictionaryParser XMLStringForNode:self withNodeName:[self nodeName] ?: @"root"];
+    }
 }
 
 - (NSArray *)arrayValueForKeyPath:(NSString *)keyPath

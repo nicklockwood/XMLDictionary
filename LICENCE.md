@@ -1,5 +1,5 @@
 XMLDictionary
-version 1.3, August 14th, 2013
+version 1.4, April 16th, 2014
 
 Copyright (C) 2011 Charcoal Design
 

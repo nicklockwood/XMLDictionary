@@ -9,7 +9,7 @@ Unlike other DOM parsers, XMLDictionary does not attempt to replicate all of the
 Supported OS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 6.1 / Mac OS 10.8 (Xcode 4.6, Apple LLVM compiler 4.2)
+* Supported build target - iOS 7.1 / Mac OS 10.9 (Xcode 5.1, Apple LLVM compiler 5.1)
 * Earliest supported deployment target - iOS 5.0 / Mac OS 10.7
 * Earliest compatible deployment target - iOS 4.3 / Mac OS 10.6
 
@@ -47,7 +47,7 @@ You can create new instances of XMLDictionaryParser if you need to use multiple 
     - (NSDictionary *)dictionaryWithString:(NSString *)string;
     - (NSDictionary *)dictionaryWithFile:(NSString *)path; 
 
-ALternatively, you can simply modify the settings of `[XMLDictionaryParser sharedInstance]` to affect the settings for all dictionaries parsed subsequently using the NSDictionary category extension methods.
+Alternatively, you can simply modify the settings of `[XMLDictionaryParser sharedInstance]` to affect the settings for all dictionaries parsed subsequently using the NSDictionary category extension methods.
 
 Use the following properties to tweak the parsing behaviour:
 
@@ -185,3 +185,43 @@ If the `attributesMode` is set to the default value of `XMLDictionaryAttributesM
 Or if it is set to `XMLDictionaryAttributesModeUnprefixed` you would simply do this:
 
     NSString *barCliche = [xmlDoc valueForKeyPath:@"bar.cliche"];
+    
+    
+Release Notes
+----------------
+
+Version 1.4
+
+- Added wrapRootNode option as a nicer way to preserve root node name
+- No longer crashes if non-string values are used as keys or attributes
+
+Version 1.3
+
+- added stripEmptyNodes property (defaults to YES)
+- added arrayValueForKeyPath, stringValueForKeyPath and dictionaryValueForKeyPath methods to simplify working with data
+
+Version 1.2.2
+
+- sharedInstance method no longer returns a new instance each time
+
+Version 1.2.1
+
+- Removed isa reference, deprecated in iOS 7
+
+Version 1.2
+
+- Exposed XMLDictionaryParser object, which can be used to configure the parser
+- Parsing options can now be changed without modifying the library
+- Added option to always encode properties as arrays
+- `__name` and `__coment` keys are no longer included by default
+- Apostrophe is now encoded as `&apos;`
+- removed `attributeForKey:` method
+
+Version 1.1
+
+- Updated to use ARC
+- Added podspec
+
+Version 1.0
+
+- Initial release
