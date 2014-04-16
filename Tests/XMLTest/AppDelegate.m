@@ -12,16 +12,15 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(__unused UIApplication *)application didFinishLaunchingWithOptions:(__unused NSDictionary *)launchOptions
 {
     NSURL *URL = [[NSURL alloc] initWithString:@"http://www.ibiblio.org/xml/examples/shakespeare/all_well.xml"];
-    NSString *string = [[NSString alloc] initWithContentsOfURL:URL encoding:NSUTF8StringEncoding error:NULL];
-    NSLog(@"string: %@", string);
-    NSDictionary *xmlDoc = [NSDictionary dictionaryWithXMLString:string];
+    NSString *xmlString = [[NSString alloc] initWithContentsOfURL:URL encoding:NSUTF8StringEncoding error:NULL];
+    NSLog(@"string: %@", xmlString);
+    NSDictionary *xmlDoc = [NSDictionary dictionaryWithXMLString:xmlString];
     NSLog(@"dictionary: %@", xmlDoc);
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];

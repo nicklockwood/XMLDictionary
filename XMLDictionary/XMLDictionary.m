@@ -32,6 +32,12 @@
 #import "XMLDictionary.h"
 
 
+#pragma GCC diagnostic ignored "-Wobjc-missing-property-synthesis"
+#pragma GCC diagnostic ignored "-Wdirect-ivar-access"
+#pragma GCC diagnostic ignored "-Wformat-non-iso"
+#pragma GCC diagnostic ignored "-Wgnu"
+
+
 #import <Availability.h>
 #if !__has_feature(objc_arc)
 #error This class requires automatic reference counting
@@ -69,7 +75,7 @@
         _trimWhiteSpace = YES;
         _alwaysUseArrays = NO;
         _preserveComments = NO;
-        _wrapRootNode = YES;
+        _wrapRootNode = NO;
     }
     return self;
 }
@@ -191,7 +197,7 @@
 	}
 }
 
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+- (void)parser:(__unused NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(__unused NSString *)namespaceURI qualifiedName:(__unused NSString *)qName attributes:(NSDictionary *)attributeDict
 {	
 	[self endText];
 	
@@ -304,7 +310,7 @@
 	return nil;
 }
 
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+- (void)parser:(__unused NSXMLParser *)parser didEndElement:(__unused NSString *)elementName namespaceURI:(__unused NSString *)namespaceURI qualifiedName:(__unused NSString *)qName
 {	
 	[self endText];
     
@@ -348,17 +354,17 @@
 	}
 }
 
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+- (void)parser:(__unused NSXMLParser *)parser foundCharacters:(NSString *)string
 {
 	[self addText:string];
 }
 
-- (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
+- (void)parser:(__unused NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
 {
 	[self addText:[[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding]];
 }
 
-- (void)parser:(NSXMLParser *)parser foundComment:(NSString *)comment
+- (void)parser:(__unused NSXMLParser *)parser foundComment:(NSString *)comment
 {
 	if (_preserveComments)
 	{
@@ -518,7 +524,7 @@
     }
     if ([value isKindOfClass:[NSDictionary class]])
     {
-        return [value innerText];
+        return [(NSDictionary *)value innerText];
     }
     return value;
 }

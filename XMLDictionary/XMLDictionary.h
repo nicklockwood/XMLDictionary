@@ -30,6 +30,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wobjc-missing-property-synthesis"
 
 
 typedef NS_ENUM(NSInteger, XMLDictionaryAttributesMode)
@@ -106,3 +108,5 @@ static NSString *const XMLDictionaryAttributePrefix = @"_";
 
 @end
 
+
+#pragma GCC diagnostic pop

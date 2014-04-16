@@ -172,16 +172,16 @@ You would write:
 
 The above examples assumes that you are using the default setting for `collapseTextNodes` and `alwaysUseArrays`. If `collapseTextNodes` is disabled then you would instead access `<foo>`'s value by writing:
 
-	NSString *foo = [xmlDoc valueForKeyPath:@"bar.foo.@innerText"];
+	NSString *foo = [[xmlDoc valueForKeyPath:@"bar.foo"] innerText];
 
 If the `alwaysUseArrays` option is enabled then would use one of the following, depending on the `collapseTextNodes` property:
 
-    NSString *foo = [xmlDoc valueForKeyPath:@"bar.foo"][0];
-    NSString *foo = [[xmlDoc valueForKeyPath:@"bar.foo"][0] innerText];
+    NSString *foo = [[xmlDoc valueForKeyPath:@"bar.foo"] firstObject];
+    NSString *foo = [[[xmlDoc valueForKeyPath:@"bar.foo"] firstObject] innerText];
 
-To get the cliche attribute of `bar`, you would write:
+To get the cliche attribute of `bar`, you could write:
 
-    NSString *barCliche = [xmlDoc valueForKeyPath:@"bar.@attributes.cliche"];
+    NSString *barCliche = [xmlDoc[@"bar] attributes][@"cliche"];
 
 If the `attributesMode` is set to the default value of `XMLDictionaryAttributesModePrefixed` then you can also do this:
 
@@ -200,6 +200,7 @@ Version 1.4
 - Added dictionaryWithXMLParser: constructor method
 - Added wrapRootNode option as a nicer way to preserve root node name
 - No longer crashes if non-string values are used as keys or attributes
+- Now complies with the -Weverything warning level
 
 Version 1.3
 
