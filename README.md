@@ -197,6 +197,7 @@ Release Notes
 
 Version 1.4
 
+- Added dictionaryWithXMLParser: constructor method
 - Added wrapRootNode option as a nicer way to preserve root node name
 - No longer crashes if non-string values are used as keys or attributes
 

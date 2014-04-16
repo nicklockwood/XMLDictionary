@@ -88,7 +88,7 @@
     return copy;
 }
 
-- (NSDictionary*)dictionaryWithParser:(NSXMLParser *)parser
+- (NSDictionary *)dictionaryWithParser:(NSXMLParser *)parser
 {
     [parser setDelegate:self];
     [parser parse];
