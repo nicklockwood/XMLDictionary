@@ -86,9 +86,8 @@
     return copy;
 }
 
-- (NSDictionary *)dictionaryWithData:(NSData *)data
+- (NSDictionary*)dictionaryWithParser:(NSXMLParser *)parser
 {
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
     [parser setDelegate:self];
     [parser parse];
     id result = _root;
@@ -96,6 +95,12 @@
     _stack = nil;
     _text = nil;
     return result;
+}
+
+- (NSDictionary *)dictionaryWithData:(NSData *)data
+{
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
+    return [self dictionaryWithParser:parser];
 }
 
 - (NSDictionary *)dictionaryWithString:(NSString *)string
@@ -364,6 +369,11 @@
 
 
 @implementation NSDictionary(XMLDictionary)
+
++ (NSDictionary *)dictionaryWithXMLParser:(NSXMLParser *)parser
+{
+	return [[[XMLDictionaryParser sharedInstance] copy] dictionaryWithParser:parser];
+}
 
 + (NSDictionary *)dictionaryWithXMLData:(NSData *)data
 {
