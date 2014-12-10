@@ -68,6 +68,7 @@ static NSString *const XMLDictionaryAttributePrefix = @"_";
 @property (nonatomic, assign) BOOL alwaysUseArrays;   // defaults to NO
 @property (nonatomic, assign) BOOL preserveComments;  // defaults to NO
 @property (nonatomic, assign) BOOL wrapRootNode;      // defaults to NO
+@property (nonatomic, assign) BOOL lowercaseKeys;     // defaults to NO
 
 @property (nonatomic, assign) XMLDictionaryAttributesMode attributesMode;
 @property (nonatomic, assign) XMLDictionaryNodeNameMode nodeNameMode;
