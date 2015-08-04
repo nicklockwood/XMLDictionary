@@ -130,7 +130,6 @@
         NSMutableArray *nodes = [NSMutableArray arrayWithCapacity:[node count]];
         for (id individualNode in node)
         {
-            //[nodes addObject:[self XMLStringForNode:individualNode withNodeName:nodeName]];
             [nodes addObject:[self XMLStringForNode:individualNode withNodeName:nil]];
         }
         return [NSString stringWithFormat:@"<%@>%@</%@>",nodeName,[nodes componentsJoinedByString:@"\n"],nodeName];
@@ -155,7 +154,6 @@
             {
                 return [NSString stringWithFormat:@"%@", innerXML];
             }
-            //return [NSString stringWithFormat:@"<%1$@%2$@>%3$@</%1$@>", nodeName, attributeString, innerXML];
         }
         else
         {
