@@ -201,6 +201,13 @@
 {	
 	[self endText];
 	
+	if (_attributesMode==XMLDictionaryAttributesModeDiscard) {
+		NSUInteger loc = [elementName rangeOfString:@":"].location;
+		if (loc != NSNotFound) {
+			elementName = [elementName substringFromIndex:loc + 1];
+		}
+	}
+	
 	NSMutableDictionary *node = [NSMutableDictionary dictionary];
 	switch (_nodeNameMode)
 	{
