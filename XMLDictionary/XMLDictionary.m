@@ -94,7 +94,7 @@
     return copy;
 }
 
-- (NSDictionary *)dictionaryWithParser:(NSXMLParser *)parser
+- (NSDictionary *)dictionaryWithParser:(NSXMLParser *)parser error:(NSError *__autoreleasing *)error
 {
     [parser setDelegate:self];
     [parser parse];
@@ -102,25 +102,26 @@
     _root = nil;
     _stack = nil;
     _text = nil;
+    *error = self.error;
     return result;
 }
 
-- (NSDictionary *)dictionaryWithData:(NSData *)data
+- (NSDictionary *)dictionaryWithData:(NSData *)data error:(NSError *__autoreleasing *)error
 {
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-    return [self dictionaryWithParser:parser];
+    return [self dictionaryWithParser:parser error:error];
 }
 
-- (NSDictionary *)dictionaryWithString:(NSString *)string
+- (NSDictionary *)dictionaryWithString:(NSString *)string error:(NSError *__autoreleasing *)error
 {
     NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
-    return [self dictionaryWithData:data];
+    return [self dictionaryWithData:data error:error];
 }
 
-- (NSDictionary *)dictionaryWithFile:(NSString *)path
+- (NSDictionary *)dictionaryWithFile:(NSString *)path error:(NSError *__autoreleasing *)error
 {	
 	NSData *data = [NSData dataWithContentsOfFile:path];
-	return [self dictionaryWithData:data];
+	return [self dictionaryWithData:data error:error];
 }
 
 + (NSString *)XMLStringForNode:(id)node withNodeName:(NSString *)nodeName
@@ -359,6 +360,11 @@
 	[self addText:string];
 }
 
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
+    self.error = parseError;
+    _root = nil;
+}
+
 - (void)parser:(__unused NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
 {
 	[self addText:[[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding]];
@@ -389,22 +395,22 @@
 
 + (NSDictionary *)dictionaryWithXMLParser:(NSXMLParser *)parser
 {
-	return [[[XMLDictionaryParser sharedInstance] copy] dictionaryWithParser:parser];
+	return [[[XMLDictionaryParser sharedInstance] copy] dictionaryWithParser:parser error:nil];
 }
 
 + (NSDictionary *)dictionaryWithXMLData:(NSData *)data
 {
-	return [[[XMLDictionaryParser sharedInstance] copy] dictionaryWithData:data];
+	return [[[XMLDictionaryParser sharedInstance] copy] dictionaryWithData:data error:nil];
 }
 
 + (NSDictionary *)dictionaryWithXMLString:(NSString *)string
 {
-	return [[[XMLDictionaryParser sharedInstance] copy] dictionaryWithString:string];
+	return [[[XMLDictionaryParser sharedInstance] copy] dictionaryWithString:string error:nil];
 }
 
 + (NSDictionary *)dictionaryWithXMLFile:(NSString *)path
 {
-	return [[[XMLDictionaryParser sharedInstance] copy] dictionaryWithFile:path];
+	return [[[XMLDictionaryParser sharedInstance] copy] dictionaryWithFile:path error:nil];
 }
 
 - (NSDictionary *)attributes
