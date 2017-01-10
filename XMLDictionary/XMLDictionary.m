@@ -492,7 +492,7 @@
 	return [nodes componentsJoinedByString:@"\n"];
 }
 
-- (NSString *)XMLString
+- (NSString *)XMLDictionaryString
 {
     if ([self count] == 1 && ![self nodeName])
     {

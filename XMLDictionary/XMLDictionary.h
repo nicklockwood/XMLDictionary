@@ -93,7 +93,7 @@ static NSString *const XMLDictionaryAttributePrefix = @"_";
 - (NSString *)nodeName;
 - (NSString *)innerText;
 - (NSString *)innerXML;
-- (NSString *)XMLString;
+- (NSString *)XMLDictionaryString;
 
 - (NSArray *)arrayValueForKeyPath:(NSString *)keyPath;
 - (NSString *)stringValueForKeyPath:(NSString *)keyPath;
