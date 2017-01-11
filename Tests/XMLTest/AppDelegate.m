@@ -20,7 +20,7 @@
     NSDictionary *xmlDoc = [NSDictionary dictionaryWithXMLString:xmlString];
     NSLog(@"dictionary: %@", xmlDoc);
     
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];

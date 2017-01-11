@@ -9,8 +9,8 @@ Unlike other DOM parsers, XMLDictionary does not attempt to replicate all of the
 Supported OS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 7.1 / Mac OS 10.9 (Xcode 5.1, Apple LLVM compiler 5.1)
-* Earliest supported deployment target - iOS 5.0 / Mac OS 10.7
+* Supported build target - iOS 10.2 / Mac OS 10.12 (Xcode 8.2, Apple LLVM compiler 8.0)
+* Earliest supported deployment target - iOS 8.0 / Mac OS 10.10
 * Earliest compatible deployment target - iOS 4.3 / Mac OS 10.6
 
 NOTE: 'Supported' means that the library has been tested with this version. 'Compatible' means that the library should work on this OS version (i.e. it doesn't rely on any unavailable SDK features) but is no longer being tested for compatibility and may require tweaking or bug fixes to run correctly.
@@ -194,6 +194,11 @@ Or if it is set to `XMLDictionaryAttributesModeUnprefixed` you would simply do t
     
 Release Notes
 ----------------
+
+Version 1.4.1
+
+- Upgraded for Xcode 8.2
+- Added tvOS and watchOS support to podspec
 
 Version 1.4
 

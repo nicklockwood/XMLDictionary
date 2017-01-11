@@ -1,7 +1,7 @@
 //
 //  XMLDictionary.h
 //
-//  Version 1.4
+//  Version 1.4.1
 //
 //  Created by Nick Lockwood on 15/11/2010.
 //  Copyright 2010 Charcoal Design. All rights reserved.
@@ -32,6 +32,9 @@
 #import <Foundation/Foundation.h>
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wobjc-missing-property-synthesis"
+
+
+NS_ASSUME_NONNULL_BEGIN
 
 
 typedef NS_ENUM(NSInteger, XMLDictionaryAttributesMode)
@@ -72,41 +75,44 @@ static NSString *const XMLDictionaryAttributePrefix = @"_";
 @property (nonatomic, assign) XMLDictionaryAttributesMode attributesMode;
 @property (nonatomic, assign) XMLDictionaryNodeNameMode nodeNameMode;
 
-- (NSDictionary *)dictionaryWithParser:(NSXMLParser *)parser;
-- (NSDictionary *)dictionaryWithData:(NSData *)data;
-- (NSDictionary *)dictionaryWithString:(NSString *)string;
-- (NSDictionary *)dictionaryWithFile:(NSString *)path;
+- (nullable NSDictionary<NSString *, id> *)dictionaryWithParser:(NSXMLParser *)parser;
+- (nullable NSDictionary<NSString *, id> *)dictionaryWithData:(NSData *)data;
+- (nullable NSDictionary<NSString *, id> *)dictionaryWithString:(NSString *)string;
+- (nullable NSDictionary<NSString *, id> *)dictionaryWithFile:(NSString *)path;
 
 @end
 
 
 @interface NSDictionary (XMLDictionary)
 
-+ (NSDictionary *)dictionaryWithXMLParser:(NSXMLParser *)parser;
-+ (NSDictionary *)dictionaryWithXMLData:(NSData *)data;
-+ (NSDictionary *)dictionaryWithXMLString:(NSString *)string;
-+ (NSDictionary *)dictionaryWithXMLFile:(NSString *)path;
++ (nullable NSDictionary<NSString *, id> *)dictionaryWithXMLParser:(NSXMLParser *)parser;
++ (nullable NSDictionary<NSString *, id> *)dictionaryWithXMLData:(NSData *)data;
++ (nullable NSDictionary<NSString *, id> *)dictionaryWithXMLString:(NSString *)string;
++ (nullable NSDictionary<NSString *, id> *)dictionaryWithXMLFile:(NSString *)path;
 
-- (NSDictionary *)attributes;
-- (NSDictionary *)childNodes;
-- (NSArray *)comments;
-- (NSString *)nodeName;
-- (NSString *)innerText;
-- (NSString *)innerXML;
-- (NSString *)XMLString;
+@property (nonatomic, readonly, copy, nullable) NSDictionary<NSString *, NSString *> *attributes;
+@property (nonatomic, readonly, copy, nullable) NSDictionary<NSString *, id> *childNodes;
+@property (nonatomic, readonly, copy, nullable) NSArray<NSString *> *comments;
+@property (nonatomic, readonly, copy, nullable) NSString *nodeName;
+@property (nonatomic, readonly, copy, nullable) NSString *innerText;
+@property (nonatomic, readonly, copy) NSString *innerXML;
+@property (nonatomic, readonly, copy) NSString *XMLString;
 
-- (NSArray *)arrayValueForKeyPath:(NSString *)keyPath;
-- (NSString *)stringValueForKeyPath:(NSString *)keyPath;
-- (NSDictionary *)dictionaryValueForKeyPath:(NSString *)keyPath;
+- (nullable NSArray *)arrayValueForKeyPath:(NSString *)keyPath;
+- (nullable NSString *)stringValueForKeyPath:(NSString *)keyPath;
+- (nullable NSDictionary<NSString *, id> *)dictionaryValueForKeyPath:(NSString *)keyPath;
 
 @end
 
 
 @interface NSString (XMLDictionary)
 
-- (NSString *)XMLEncodedString;
+@property (nonatomic, readonly, copy) NSString *XMLEncodedString;
 
 @end
+
+
+NS_ASSUME_NONNULL_END
 
 
 #pragma GCC diagnostic pop
