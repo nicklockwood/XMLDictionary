@@ -561,4 +561,37 @@
             stringByReplacingOccurrencesOfString:@"\'" withString:@"&apos;"];
 }
 
+- (NSString *)filterXMLSpecial
+{
+    NSData *myD = [self dataUsingEncoding:NSUTF8StringEncoding];
+    Byte *bytes = (Byte *)[myD bytes];
+    NSString *hexStr = @"";
+    for(NSUInteger i = 0; i < [myD length]; i++)
+    {
+        @autoreleasepool
+        {
+            // xml无效字符
+            unsigned int anHex = bytes[i]&0xff;
+            if((anHex > 0x00 && anHex <= 0x08) ||
+               (anHex >= 0x0b && anHex <= 0x0c) ||
+               (anHex >= 0x0e && anHex <= 0x1f))
+            {
+                continue;
+            }
+            
+            NSString *newHexStr = [NSString stringWithFormat:@"%x",bytes[i]&0xff];///16进制数
+            
+            if([newHexStr length]==1)
+            {
+                hexStr = [NSString stringWithFormat:@"%@0%@",hexStr, newHexStr];
+            }
+            else
+            {
+                hexStr = [NSString stringWithFormat:@"%@%@",hexStr, newHexStr];
+            }
+        }
+    }
+    return hexStr;
+}
+
 @end

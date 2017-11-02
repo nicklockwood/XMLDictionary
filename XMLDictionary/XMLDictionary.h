@@ -109,6 +109,8 @@ static NSString *const XMLDictionaryAttributePrefix = @"_";
 
 @property (nonatomic, readonly, copy) NSString *XMLEncodedString;
 
+- (NSString *)filterXMLSpecial;
+
 @end
 
 
