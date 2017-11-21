@@ -131,9 +131,9 @@
         NSMutableArray<NSString *> *nodes = [NSMutableArray arrayWithCapacity:[node count]];
         for (id individualNode in node)
         {
-            [nodes addObject:[self XMLStringForNode:individualNode withNodeName:nodeName]];
+            [nodes addObject:[self XMLStringForNode:individualNode withNodeName:nil]];
         }
-        return [nodes componentsJoinedByString:@"\n"];
+        return [NSString stringWithFormat:@"<%@>%@</%@>",nodeName,[nodes componentsJoinedByString:@"\n"],nodeName];
     }
     else if ([node isKindOfClass:[NSDictionary class]])
     {
@@ -146,7 +146,14 @@
         NSString *innerXML = [node innerXML];
         if (innerXML.length)
         {
-            return [NSString stringWithFormat:@"<%1$@%2$@>%3$@</%1$@>", nodeName, attributeString, innerXML];
+            if(nodeName)
+            {
+                return [NSString stringWithFormat:@"<%1$@%2$@>%3$@</%1$@>", nodeName, attributeString, innerXML];
+            }
+            else
+            {
+                return [NSString stringWithFormat:@"%@", innerXML];
+            }
         }
         else
         {
