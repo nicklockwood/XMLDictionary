@@ -77,6 +77,7 @@
         _alwaysUseArrays = NO;
         _preserveComments = NO;
         _wrapRootNode = NO;
+        _lowercaseKeys = NO;
     }
     return self;
 }
@@ -92,6 +93,7 @@
     copy.attributesMode = _attributesMode;
     copy.nodeNameMode = _nodeNameMode;
     copy.wrapRootNode = _wrapRootNode;
+    copy.lowercaseKeys = _lowercaseKeys;
     return copy;
 }
 
@@ -200,6 +202,8 @@
 - (void)parser:(__unused NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(__unused NSString *)namespaceURI qualifiedName:(__unused NSString *)qName attributes:(NSDictionary *)attributeDict
 {	
 	[self endText];
+    
+    elementName = self.lowercaseKeys?[elementName lowercaseString]:elementName;
 	
 	NSMutableDictionary<NSString *, id> *node = [NSMutableDictionary dictionary];
 	switch (_nodeNameMode)
